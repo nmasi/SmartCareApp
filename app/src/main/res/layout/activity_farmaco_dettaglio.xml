@@ -7,8 +7,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:id="@+id/list_item_textview"
     tools:context=".FarmacoDettaglioActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/farmacoImg"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:minHeight="150dp"
+        android:minWidth="150dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,9 +24,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nome"
         android:id="@+id/farmacoNome"
-        android:layout_marginTop="2dp"
-        android:layout_alignParentTop="true"
-        android:textSize="12sp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/farmacoImg"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -27,18 +34,28 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Azienda"
         android:id="@+id/farmacoNomeAzienda"
-        android:layout_marginTop="2dp"
+        android:textSize="10dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/farmacoNome"
-        android:textSize="10sp"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Descrizione"
         android:id="@+id/farmacoDescrizione"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/farmacoNomeAzienda"
-        android:textSize="8sp" />
+        android:autoText="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerHorizontal="true"
+        android:scrollIndicators="right"
+        android:textAlignment="gravity"
+        android:textStyle="italic"
+        android:typeface="serif"
+        android:textSize="15dp"
+        android:gravity="fill_horizontal|fill" />
 </RelativeLayout>
