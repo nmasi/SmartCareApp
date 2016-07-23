@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.smartalia.smartcare.smartcareapp.Utils.UtilisGlobal;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,9 +32,9 @@ private Context context;
         // Gets the URL from the UI's text field.
         try {
             String stringUrl = "http://www.smartalia.com/farmaci.json";
-            ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-            if (networkInfo != null && networkInfo.isConnected()) {
+  //          ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    //        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if (UtilisGlobal.verifyConnection(context,true)) {
                 new DownloadWebpageTask().execute(stringUrl);
             } else {
                 //textView.setText("No network connection available.");

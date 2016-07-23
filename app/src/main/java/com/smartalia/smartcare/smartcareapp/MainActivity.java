@@ -1,12 +1,15 @@
 package com.smartalia.smartcare.smartcareapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.smartalia.smartcare.smartcareapp.Utils.AlarmUtils;
 import com.smartalia.smartcare.smartcareapp.model.Farmaco;
@@ -42,9 +45,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlarmUtils alarmUtils = new AlarmUtils();
                 alarmUtils.setTimer(getApplicationContext(),System.currentTimeMillis()+1000);
-                //submitOrder();
+                submitOrder();
             }
         });
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("myCodiceFiscale", "MSANCL85C16G273G");
+        editor.commit();
+
+        TextView myCodiceFiscale = (TextView) findViewById(R.id.codiceFiscaleString);
+        myCodiceFiscale.setText(pref.getString("myCodiceFiscale","Non Impostato"));
 
     }
 

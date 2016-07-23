@@ -5,4 +5,6 @@
     <string name="voce1">Voce1</string>
     <string name="voceGlobale">Voce Globale</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="connection_ok">Connessione Internet Attiva</string>
+    <string name="connection_ko">Connessione Internet non Attiva</string>
 </resources>
