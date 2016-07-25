@@ -17,6 +17,7 @@ public class FarmacoDettaglioActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.farmacoNome)).setText(bundle.getString("farmacoNome"));
         ((TextView)findViewById(R.id.farmacoNomeAzienda)).setText(bundle.getString("farmacoAzienda"));
         ((TextView)findViewById(R.id.farmacoDescrizione)).setText(bundle.getString("farmacoDescrizione"));
-        new AsyncTaskImage((ImageView) findViewById(R.id.farmacoImg)).execute("http://www.angelini.it/wps/wcm/connect/f39b7b74-46db-4707-9677-a1350ebb9c7f/logo-mob.png?MOD=AJPERES&CACHEID=f39b7b74-46db-4707-9677-a1350ebb9c7f");
+        new AsyncTaskImage((ImageView) findViewById(R.id.farmacoImg)).execute(bundle.getString("farmacoUrlImg"));
+        //new AsyncTaskImage((ImageView) findViewById(R.id.farmacoImg)).execute("http://www.angelini.it/wps/wcm/connect/f39b7b74-46db-4707-9677-a1350ebb9c7f/logo-mob.png?MOD=AJPERES&CACHEID=f39b7b74-46db-4707-9677-a1350ebb9c7f");
     }
 }

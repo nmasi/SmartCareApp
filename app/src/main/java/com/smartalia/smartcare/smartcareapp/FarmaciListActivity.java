@@ -1,9 +1,10 @@
 package com.smartalia.smartcare.smartcareapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -15,7 +16,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.smartalia.smartcare.smartcareapp.adapter.ArrayAdapterFarmaci;
-import com.smartalia.smartcare.smartcareapp.model.Farmaco;
+import com.smartalia.smartcare.smartcareapp.contentprovider.SmartCareContract;
+import com.smartalia.smartcare.smartcareapp.model.Drug;
 import com.smartalia.smartcare.smartcareapp.services.ConnectionHttp;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class FarmaciListActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private ArrayList<Farmaco> farmaci;
+    private ArrayList<Drug> farmaci;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +44,34 @@ public class FarmaciListActivity extends AppCompatActivity {
             farmaci.add("Farmaco "+i+" - Attivo");
         }*/
 
-        farmaci = new ArrayList<Farmaco>();
-        farmaci.add(new Farmaco("Tachipirina", "ANGELINI", "img" , "Il paracetamolo, meglio conosciuto in Italia come Tachipirina®,  è un principio attivo che si trova in vendita come farmaco da banco o meno a seconda del dosaggio; è molto usato come antipiretico (cioè per far diminuire la febbre), ma pochi sanno che è un ottimo analgesico (cioè come antidolorifico)."));
+        /*
+        farmaci = new ArrayList<Drug>();
+        farmaci.add(new Drug("Tachipirina", "ANGELINI", "img" , "Il paracetamolo, meglio conosciuto in Italia come Tachipirina®,  è un principio attivo che si trova in vendita come farmaco da banco o meno a seconda del dosaggio; è molto usato come antipiretico (cioè per far diminuire la febbre), ma pochi sanno che è un ottimo analgesico (cioè come antidolorifico)."));
         for (int i = 0; i < 100; i++) {
-            farmaci.add(new Farmaco("Farmaco " + i, "Azianda " + i, "img" + i, "Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... " + i));
+            farmaci.add(new Drug("Farmaco " + i, "Azianda " + i, "img" + i, "Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... Descrizione Bla bla bla.... " + i));
+        }
+*/
+        try {
+            farmaci = new ArrayList<Drug>();
+            Cursor drugCursor = getContentResolver().query(
+                    SmartCareContract.Drug.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null);
+            while (drugCursor.moveToNext()){
+            Drug drug = new Drug();
+            drug.setNomeFarmaco(drugCursor.getString(drugCursor.getColumnIndex(SmartCareContract.Drug.COLUMN_NAME)));
+            drug.setNomeAzienda(drugCursor.getString(drugCursor.getColumnIndex(SmartCareContract.Drug.COLUMN_FARM)));
+            drug.setDescrizioneFarmaco(drugCursor.getString(drugCursor.getColumnIndex(SmartCareContract.Drug.COLUMN_DESCRIPTION)));
+            drug.setUrlImg(drugCursor.getString(drugCursor.getColumnIndex(SmartCareContract.Drug.COLUMN_URL_IMG)));
+
+
+            farmaci.add(drug);
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
         ArrayAdapter arrayAdapter = new ArrayAdapterFarmaci(this, R.layout.list_item, R.id.list_item_textview, farmaci);
@@ -55,7 +81,7 @@ public class FarmaciListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Farmaco farmaco = farmaci.get(position);
+                Drug farmaco = farmaci.get(position);
                 Intent intent = new Intent(FarmaciListActivity.this, FarmacoDettaglioActivity.class);
                 intent.putExtra("farmacoNome", farmaco.getNomeFarmaco());
                 intent.putExtra("farmacoAzienda", farmaco.getNomeAzienda());

@@ -12,8 +12,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.smartalia.smartcare.smartcareapp.Utils.AlarmUtils;
-import com.smartalia.smartcare.smartcareapp.model.Farmaco;
+import com.smartalia.smartcare.smartcareapp.Utils.Constants;
+import com.smartalia.smartcare.smartcareapp.model.Drug;
 import com.smartalia.smartcare.smartcareapp.services.HttpRequest;
+import com.smartalia.smartcare.smartcareapp.services.IntentServicesHttp;
 
 import java.util.ArrayList;
 
@@ -23,11 +25,16 @@ public class MainActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private ArrayList<Farmaco> farmaci;
+    private ArrayList<Drug> farmaci;
+    private static String LOG = MainActivity.class.getName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent2 = new Intent(Intent.ACTION_SYNC, null, this, IntentServicesHttp.class);
+        intent2.putExtra(IntentServicesHttp.REQUEST_TYPE,IntentServicesHttp.TYPE_HTTP);
+        this.startService(intent2);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,13 +56,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("myCodiceFiscale", "MSANCL85C16G273G");
         editor.commit();
 
         TextView myCodiceFiscale = (TextView) findViewById(R.id.codiceFiscaleString);
-        myCodiceFiscale.setText(pref.getString("myCodiceFiscale","Non Impostato"));
+        myCodiceFiscale.setText(pref.getString(Constants.JSON_PROPERTIES_PATIENT_CODICEFISCALE,"Non Impostato"));
+        TextView myName = (TextView) findViewById(R.id.NameString);
+        myName.setText(pref.getString(Constants.JSON_PROPERTIES_PATIENT_NAME,"Non Impostato"));
+        TextView mySurname = (TextView) findViewById(R.id.surnameString);
+        mySurname.setText(pref.getString(Constants.JSON_PROPERTIES_PATIENT_SURNAME,"Non Impostato"));
 
     }
 

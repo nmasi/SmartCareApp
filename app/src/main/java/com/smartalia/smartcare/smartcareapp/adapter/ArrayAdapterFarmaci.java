@@ -8,14 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.smartalia.smartcare.smartcareapp.R;
-import com.smartalia.smartcare.smartcareapp.model.Farmaco;
+import com.smartalia.smartcare.smartcareapp.model.Drug;
 
 import java.util.List;
 
 /**
  * Created by nicola on 29/06/16.
  */
-public class ArrayAdapterFarmaci extends ArrayAdapter<Farmaco>{
+public class ArrayAdapterFarmaci extends ArrayAdapter<Drug>{
 
 
     public ArrayAdapterFarmaci(Context context, int resource, int textViewResourceId, List objects) {
@@ -32,7 +32,7 @@ public class ArrayAdapterFarmaci extends ArrayAdapter<Farmaco>{
         TextView nome = (TextView)convertView.findViewById(R.id.farmacoNome);
         TextView azienda = (TextView)convertView.findViewById(R.id.farmacoNomeAzienda);
         TextView descrizione = (TextView)convertView.findViewById(R.id.farmacoDescrizione);
-        Farmaco c = getItem(position);
+        Drug c = getItem(position);
         nome.setText(c.getNomeFarmaco());
         azienda.setText(c.getNomeAzienda());
         descrizione.setText(c.getDescrizioneFarmaco());

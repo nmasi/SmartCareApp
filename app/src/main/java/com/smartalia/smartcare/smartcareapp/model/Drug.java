@@ -3,16 +3,16 @@ package com.smartalia.smartcare.smartcareapp.model;
 /**
  * Created by nicola on 07/07/16.
  */
-public class Farmaco {
+public class Drug {
     private String nomeFarmaco;
     private String nomeAzienda;
     private String urlImg;
     private String descrizioneFarmaco;
 
-    public Farmaco() {
+    public Drug() {
     }
 
-    public Farmaco(String nomeFarmaco, String nomeAzienda, String urlImg, String descrizioneFarmaco) {
+    public Drug(String nomeFarmaco, String nomeAzienda, String urlImg, String descrizioneFarmaco) {
         this.nomeFarmaco = nomeFarmaco;
         this.nomeAzienda = nomeAzienda;
         this.urlImg = urlImg;

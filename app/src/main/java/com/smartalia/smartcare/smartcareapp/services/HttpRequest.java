@@ -1,8 +1,6 @@
 package com.smartalia.smartcare.smartcareapp.services;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,11 +29,13 @@ private Context context;
     public void myClickHandler() {
         // Gets the URL from the UI's text field.
         try {
-            String stringUrl = "http://www.smartalia.com/farmaci.json";
+            String stringUrl = "http://www.smartalia.com/getStartDate.json";
   //          ConnectivityManager connMgr = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
     //        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (UtilisGlobal.verifyConnection(context,true)) {
                 new DownloadWebpageTask().execute(stringUrl);
+
+
             } else {
                 //textView.setText("No network connection available.");
             }
